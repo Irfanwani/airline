@@ -1,6 +1,6 @@
 version: '3'
 services:
-  db:
+  localhost:
       image: postgres
   migration:
       build: .
@@ -8,16 +8,16 @@ services:
     volumes:
         - .:/Users/madina/app
     depends_on: 
-      - db
+      - localhost
 
   web:
     build: .
-    command: py manage.py runserver 0.0.0.0:8000
+    command: py manage.py runserver 127.0.0.1:8000
     volumes: 
         - .:/Users/madina/app
     ports:
         - "8000:8000"
     depends_on: 
-        - db
+        - localhost
         - migration
 
