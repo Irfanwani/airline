@@ -1,5 +1,5 @@
 FROM python:3
-WORKDIR /Users/madina/app
-ADD requirements.txt /Users/madina/app
+WORKDIR /app
+ADD requirements.txt /app
 RUN pip install -r requirements.txt
-ADD . /Users/madina/app
+ADD . /app
