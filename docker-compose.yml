@@ -1,23 +1,25 @@
 version: '3'
 services:
-  localhost:
-      image: postgres
-  migration:
-      build: .
-    command: python manage.py migrate
-    volumes:
-        - .:/Users/madina/app
-    depends_on: 
-      - localhost
+    db:
+        image: postgres
+        environment:
+            POSTGRES_PASSWORD: *******
+    migration:
+        build: .
+      command: python manage.py migrate
+      volumes:
+          - .:/app
+      depends_on: 
+        - db
 
-  web:
-    build: .
-    command: py manage.py runserver 127.0.0.1:8000
-    volumes: 
-        - .:/Users/madina/app
-    ports:
-        - "8000:8000"
-    depends_on: 
-        - localhost
-        - migration
+    web:
+      build: .
+      command: py manage.py runserver 0.0.0.0:8000
+      volumes: 
+          - .:/app
+      ports:
+          - "8000:8000"
+      depends_on: 
+          - db
+          - migration
 
